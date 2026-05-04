@@ -870,6 +870,7 @@ L["Scale of the nameplate that is targetted."] = true
 L["Scale"] = "缩放"
 L["Scroll Interval"] = "滚动间隔"
 L["Scroll Messages"] = "滚动信息数目"
+L["Search"] = "搜索"
 L["Search Syntax"] = "搜索语法"
 L["Search for a spell name inside of a filter."] = "在过滤器中筛选法术"
 L["Secondary Texture"] = "次要材质"

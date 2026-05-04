@@ -390,7 +390,7 @@ local function GetUnitSettings(unit, name)
 	return group
 end
 
-E.Options.args.nameplates = ACH:Group(L["Nameplates"], nil, 18, 'tab', function(info) return E.db.nameplates[info[#info]] end, function(info, value) E.db.nameplates[info[#info]] = value; NP:ConfigureAll() end)
+E.Options.args.nameplates = ACH:Group(L["NamePlates"], nil, 18, 'tab', function(info) return E.db.nameplates[info[#info]] end, function(info, value) E.db.nameplates[info[#info]] = value; NP:ConfigureAll() end)
 local NamePlates = E.Options.args.nameplates.args
 
 NamePlates.intro = ACH:Description(L["NAMEPLATE_DESC"], 0)

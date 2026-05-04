@@ -878,6 +878,7 @@ L["Scale of the nameplate that is targetted."] = true
 L["Scale"] = true
 L["Scroll Interval"] = true
 L["Scroll Messages"] = true
+L["Search"] = true
 L["Search Syntax"] = true
 L["Search for a spell name inside of a filter."] = true
 L["Secondary Texture"] = true
