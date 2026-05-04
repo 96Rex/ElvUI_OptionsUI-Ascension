@@ -2,15 +2,8 @@ local E = unpack(ElvUI) --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalD
 local D = E:GetModule("Distributor")
 
 local _, Engine = ...
-Engine[1] = {Blank = function() return '' end }
-local gameLocale
-do -- Locale doesn't exist yet, make it exist.
-	local convert = {["enGB"] = "enUS", ["esES"] = "esMX", ["itIT"] = "enUS"}
-	local lang = GetLocale()
-
-	gameLocale = convert[lang] or lang or "enUS"
-	Engine[2] = E.Libs.ACL:GetLocale("ElvUI", gameLocale)
-end
+Engine[1] = {}
+Engine[2] = E.Libs.ACL:GetLocale("ElvUI", E.global.general.locale or "enUS")
 local C, L = Engine[1], Engine[2]
 
 local format, strmatch, strsplit = string.format, string.match, string.split
