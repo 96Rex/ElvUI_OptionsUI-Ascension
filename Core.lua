@@ -13,9 +13,9 @@ local ipairs, gsub = ipairs, gsub
 C.Values = {
 	FontFlags = {
 		["NONE"] = L["NONE"],
-		["OUTLINE"] = "OUTLINE",
-		["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
-		["THICKOUTLINE"] = "THICKOUTLINE"
+		["OUTLINE"] = L["OUTLINE"],
+		["MONOCHROMEOUTLINE"] = L["MONOCROMEOUTLINE"],
+		["THICKOUTLINE"] = L["THICKOUTLINE"]
 	}
 }
 

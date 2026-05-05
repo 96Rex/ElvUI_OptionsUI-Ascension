@@ -326,8 +326,98 @@ local function BuildABConfig()
 		}
 	}
 
-	group.barTotem = {
+	group.microbar = {
 		order = 2,
+		type = "group",
+		name = L["Micro Bar"],
+		disabled = function() return not E.ActionBars.Initialized end,
+		get = function(info) return E.db.actionbar.microbar[info[#info]] end,
+		set = function(info, value) E.db.actionbar.microbar[info[#info]] = value AB:UpdateMicroPositionDimensions() end,
+		args = {
+			info = {
+				order = 1,
+				type = "header",
+				name = L["Micro Bar"]
+			},
+			enabled = {
+				order = 2,
+				type = "toggle",
+				name = L["Enable"]
+			},
+			restoreMicrobar = {
+				order = 3,
+				type = "execute",
+				name = L["Restore Bar"],
+				desc = L["Restore the actionbars default settings"],
+				func = function() E:CopyTable(E.db.actionbar.microbar, P.actionbar.microbar) E:ResetMovers(L["Micro Bar"]) AB:UpdateMicroPositionDimensions() end,
+				disabled = function() return not E.db.actionbar.microbar.enabled end
+			},
+			spacer = {
+				order = 4,
+				type = "description",
+				name = " "
+			},
+			mouseover = {
+				order = 5,
+				type = "toggle",
+				name = L["Mouse Over"],
+				desc = L["The frame is not shown unless you mouse over the frame."],
+				disabled = function() return not E.db.actionbar.microbar.enabled end
+			},
+			buttonSize = {
+				order = 6,
+				type = "range",
+				name = L["Button Size"],
+				desc = L["The size of the action buttons."],
+				min = 15, max = 60, step = 1,
+				disabled = function() return not E.db.actionbar.microbar.enabled end
+			},
+			buttonSpacing = {
+				order = 7,
+				type = "range",
+				name = L["Button Spacing"],
+				desc = L["The spacing between buttons."],
+				min = -1, max = 20, step = 1,
+				disabled = function() return not E.db.actionbar.microbar.enabled end
+			},
+			buttonsPerRow = {
+				order = 11,
+				type = "range",
+				name = L["Buttons Per Row"],
+				desc = L["The amount of buttons to display per row."],
+				min = 1, max = 11, step = 1,
+				disabled = function() return not E.db.actionbar.microbar.enabled end
+			},
+			alpha = {
+				order = 9,
+				type = "range",
+				name = L["Alpha"],
+				isPercent = true,
+				desc = L["Change the alpha level of the frame."],
+				min = 0, max = 1, step = 0.1,
+				disabled = function() return not E.db.actionbar.microbar.enabled end
+			},
+			visibility = {
+				order = 10,
+				type = "input",
+				name = L["Visibility State"],
+				desc = L["This works like a macro, you can run different situations to get the actionbar to show/hide differently.\n Example: '[combat] show;hide'"],
+				width = "full",
+				multiline = true,
+				set = function(info, value)
+					if value and value:match("[\n\r]") then
+						value = value:gsub("[\n\r]","")
+					end
+					E.db.actionbar.microbar.visibility = value
+					AB:UpdateMicroPositionDimensions()
+				end,
+				disabled = function() return not E.db.actionbar.microbar.enabled end
+			}
+		}
+	}
+
+	group.barTotem = {
+		order = 3,
 		type = "group",
 		name = L["TUTORIAL_TITLE47"],
 		guiInline = false,
@@ -428,7 +518,7 @@ local function BuildABConfig()
 	}
 
 	group.barPet = {
-		order = 3,
+		order = 4,
 		type = "group",
 		name = L["Pet Bar"],
 		guiInline = false,
@@ -570,8 +660,9 @@ local function BuildABConfig()
 			}
 		}
 	}
+
 	group.stanceBar = {
-		order = 4,
+		order = 5,
 		type = "group",
 		name = L["Stance Bar"],
 		guiInline = false,
@@ -723,95 +814,7 @@ local function BuildABConfig()
 			}
 		}
 	}
-	group.microbar = {
-		order = 5,
-		type = "group",
-		name = L["Micro Bar"],
-		disabled = function() return not E.ActionBars.Initialized end,
-		get = function(info) return E.db.actionbar.microbar[info[#info]] end,
-		set = function(info, value) E.db.actionbar.microbar[info[#info]] = value AB:UpdateMicroPositionDimensions() end,
-		args = {
-			info = {
-				order = 1,
-				type = "header",
-				name = L["Micro Bar"]
-			},
-			enabled = {
-				order = 2,
-				type = "toggle",
-				name = L["Enable"]
-			},
-			restoreMicrobar = {
-				order = 3,
-				type = "execute",
-				name = L["Restore Bar"],
-				desc = L["Restore the actionbars default settings"],
-				func = function() E:CopyTable(E.db.actionbar.microbar, P.actionbar.microbar) E:ResetMovers(L["Micro Bar"]) AB:UpdateMicroPositionDimensions() end,
-				disabled = function() return not E.db.actionbar.microbar.enabled end
-			},
-			spacer = {
-				order = 4,
-				type = "description",
-				name = " "
-			},
-			mouseover = {
-				order = 5,
-				type = "toggle",
-				name = L["Mouse Over"],
-				desc = L["The frame is not shown unless you mouse over the frame."],
-				disabled = function() return not E.db.actionbar.microbar.enabled end
-			},
-			buttonSize = {
-				order = 6,
-				type = "range",
-				name = L["Button Size"],
-				desc = L["The size of the action buttons."],
-				min = 15, max = 60, step = 1,
-				disabled = function() return not E.db.actionbar.microbar.enabled end
-			},
-			buttonSpacing = {
-				order = 7,
-				type = "range",
-				name = L["Button Spacing"],
-				desc = L["The spacing between buttons."],
-				min = -1, max = 20, step = 1,
-				disabled = function() return not E.db.actionbar.microbar.enabled end
-			},
-			buttonsPerRow = {
-				order = 11,
-				type = "range",
-				name = L["Buttons Per Row"],
-				desc = L["The amount of buttons to display per row."],
-				min = 1, max = 11, step = 1,
-				disabled = function() return not E.db.actionbar.microbar.enabled end
-			},
-			alpha = {
-				order = 9,
-				type = "range",
-				name = L["Alpha"],
-				isPercent = true,
-				desc = L["Change the alpha level of the frame."],
-				min = 0, max = 1, step = 0.1,
-				disabled = function() return not E.db.actionbar.microbar.enabled end
-			},
-			visibility = {
-				order = 10,
-				type = "input",
-				name = L["Visibility State"],
-				desc = L["This works like a macro, you can run different situations to get the actionbar to show/hide differently.\n Example: '[combat] show;hide'"],
-				width = "full",
-				multiline = true,
-				set = function(info, value)
-					if value and value:match("[\n\r]") then
-						value = value:gsub("[\n\r]","")
-					end
-					E.db.actionbar.microbar.visibility = value
-					AB:UpdateMicroPositionDimensions()
-				end,
-				disabled = function() return not E.db.actionbar.microbar.enabled end
-			}
-		}
-	}
+
 	for i = 1, 6 do
 		local name = L["Bar "]..i
 		group["bar"..i] = {
